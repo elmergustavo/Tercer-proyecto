@@ -1,13 +1,14 @@
 require 'terminal-table'
 def limpiar_pantalla
-  system('clear')
+system('clear')
 end
 class Pila
         def initialize
             @pila = {
                 tope: nil,
                 size: 0,
-                esta_vacia: true
+                esta_vacia: true,
+                imprecion: false
             }
             @pila_aux = {
                 tope: nil,
@@ -178,6 +179,7 @@ end
             puts 'opcion icorrecta, vuelva a intentar'
           end
         end
+        @pasos.clear
       end
 
 end
