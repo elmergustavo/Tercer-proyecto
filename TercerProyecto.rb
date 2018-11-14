@@ -34,15 +34,21 @@ def ordenar_todos_los_datos(pila,array=[])
   a.add_row([{value:'4', alignment: :center},'Salir.' ])
 end
   puts tabla
-  puts "Ingrese una estructura: "
+  print "Ingrese una estructura: "
   opc = gets.chomp
   limpiar_pantalla()
   case opc
   when '1'
   when '2'
+    if array.size!=0
     array_antes=array.join(' => ')
-    pila.ordenar_pila(array,array_antes)
+    pila.ordenar_pila(array)
+    pila.mostrar_tabla(array_antes)
     gets
+    else
+      puts 'Ingrese nuevos datos para ordenar'
+      gets
+    end
   when '3'
   else
     'La opcion no es valida vuelva a ingresar'
@@ -52,9 +58,9 @@ end
 
 
 #ORDENAR PASO A PASO
-def ordenar_paso_a_paso()
-limpiar_pantalla
+def ordenar_paso_a_paso(pila,array=[])
   begin
+    limpiar_pantalla
   tabla = Terminal::Table.new do |a|
   a.title= 'Ordenar paso a paso'
   a.headings = [{value:'No.', alignment: :center},{value:'Estructura', alignment: :center}]
@@ -65,12 +71,21 @@ limpiar_pantalla
   a.add_row([{value:'4', alignment: :center},'Salir.' ])
 end
   puts tabla
-  puts "Ingrese una estructura: "
+  print "Ingrese una estructura: "
   opc = gets.chomp
   limpiar_pantalla()
   case opc
   when '1'
   when '2'
+    if array.size!=0
+      array_antes=array.join(',')
+      pila.ordenar_pila(array)
+      pila.mostrar_pasos(array_antes)
+      gets
+    else
+    puts 'Ingrese nuevos datos para ordenar'
+    gets
+    end
   when '3'
   else
     'La opcion no es valida vuelva a ingresar'
@@ -109,7 +124,7 @@ end
     when '2'
       ordenar_todos_los_datos(pila,array)
     when '3'
-        ordenar_paso_a_paso()
+        ordenar_paso_a_paso(pila,array)
     when '4'
         puts "Programa Terminado"
     else

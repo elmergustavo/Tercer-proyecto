@@ -1,4 +1,7 @@
 require 'terminal-table'
+def limpiar_pantalla
+  system('clear')
+end
 class Pila
         def initialize
             @pila = {
@@ -11,6 +14,7 @@ class Pila
                 size:0,
                 esta_vacia: true
             }
+            @pasos=[]
             @cadena=""
         end
         #insertar los menores del valor actual en aux
@@ -34,16 +38,6 @@ class Pila
     #ingresar los menores a la pila
         def ingresar_menores
             if @pila_aux[:tope]!=nil
-                if @pila_aux[:size]==nil
-                nodo = {
-                valor:valor,
-                siguiente: nil
-                }
-                tope=@pila[:tope]
-                nodo[:siguiente]=tope
-                @pila[:tope]=nodo
-                @pila_aux[:tope]=nil
-                else
             for i in 1..@pila_aux[:size]
             valor = @pila_aux[:tope][:valor]
             nodo = {
@@ -55,8 +49,8 @@ class Pila
             @pila[:tope]=nodo
             siguiente = @pila_aux[:tope][:siguiente]
             @pila_aux[:tope]=siguiente
+            @pasos.push(mostrar_pila())#pasos
             end
-        end
         end
         end
         #apartar los menores al valor actual.
@@ -70,24 +64,30 @@ class Pila
                 valor = @pila[:tope][:valor]
                 if num>valor && @pila[:tope][:siguiente]==nil
                     insertar_en_aux(valor)
+                    @pasos.push("eliminar #{valor}")#paso..
                     @pila[:tope]=nodo
                     @pila[:size]+=1
                     conta=@pila[:size]+1
+                    @pasos.push(mostrar_pila())#pasos..
                 elsif num ==valor
                     tope = @pila[:tope]
                     nodo[:siguiente]=tope
                     @pila[:tope]=nodo
                     @pila[:size]+=1
                     conta=@pila[:size]+1
+                    @pasos.push(mostrar_pila())#pasos..
                 elsif num>valor
                     insertar_en_aux(valor)
+                    @pasos.push("eliminar #{valor}")#pasos
                     @pila[:tope]=@pila[:tope][:siguiente]
+                    @pasos.push(mostrar_pila())#pasos..
                 elsif num<valor
                     tope = @pila[:tope]
                     nodo[:siguiente]=tope
                     @pila[:tope]=nodo
                     @pila[:size]+=1
                     conta=@pila[:size]+1
+                    @pasos.push(mostrar_pila())#pasos..
                 end
                 conta+=1
             end
@@ -97,12 +97,10 @@ class Pila
             @pila_aux[:esta_vacia]=true
         end
         #ordenar principal
-        def ordenar_pila(array=[],array_antes)
+        def ordenar_pila(array=[])
             size = array.size
-            if size==0
-              puts 'Ingrese nuevos elementos a ordenar.'
-            else
             for i in 0..size-1
+              @pasos.push("ingresar #{array[i]}")#paso..
                 nodo = {
                     valor: array[i],
                     siguiente: nil
@@ -111,21 +109,24 @@ class Pila
                     @pila[:tope]=nodo
                     @pila[:esta_vacia]=false
                     @pila[:size]+=1
+
                 else
                     apartar_menores(array[i])
                 end
             end
-            mostrar_tabla(array_antes)
             array.clear
-          end
         end
         #mostrar la pila
         def mostrar_pila
             elemento=@pila[:tope]
-            if elemento[:siguiente]==nil
-                puts elemento[:valor]
+            @cadena=""
+            if elemento ==nil
+              @cadena=""
+              @cadena
+            elsif elemento[:siguiente]==nil
+                @cadena+="#{elemento[:valor]}"
+                @cadena
             else
-                @cadena=""
                 @cadena+="#{elemento[:valor]}"
                 begin
                     elemento = elemento[:siguiente]
@@ -142,4 +143,41 @@ class Pila
   end
   puts tabla
       end
+
+      def tabla_pasos(conta,array_antes)
+        aux=0
+  tabla = Terminal::Table.new do |a|
+  a.title= "Elementos a ordenar: #{array_antes}"
+  a.headings = [{value:'Interaccion', alignment: :center},{value:'Estructura de datos', alignment: :center}]
+  for i in 0..conta-1
+  a.add_row([
+  aux+=1,
+  @pasos[i]
+  ])
+end
+  end
+  return tabla
+      end
+
+      def mostrar_pasos(array_antes)
+          size=@pasos.size
+          conta=0
+        while conta<size
+          limpiar_pantalla
+          print 'Ingrese (p) para ir paso a paso o (f) para mostrar todos los pasos: '
+          opc=gets.chomp
+          if opc == 'p'
+          puts tabla_pasos(conta+=1,array_antes)
+          gets
+          elsif opc == 'f'
+            conta=size
+            puts tabla_pasos(size,array_antes)
+            puts 'Fin de la estructura'
+            gets
+          else
+            puts 'opcion icorrecta, vuelva a intentar'
+          end
+        end
+      end
+
 end
