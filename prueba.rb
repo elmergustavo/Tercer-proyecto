@@ -1,8 +1,11 @@
-def prueba(array=[])
- array.clear
-    array.push(8)
-end
+require 'terminal-table'
+  tabla = Terminal::Table.new do |a|
+  a.title= 'Ordenar todos los datos'
+  a.headings = [{value:'No.', alignment: :center}]
 
-array=[]
-prueba(array)
-puts array
+  a.add_row(["123" ])
+  a.add_row(['Pila.'])
+  a.add_row(['Lista.'])
+  a.add_row(['Salir.' ])
+end
+puts tabla
