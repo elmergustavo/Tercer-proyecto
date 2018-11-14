@@ -32,8 +32,18 @@ class Pila
     #ingresar los menores a la pila
         def ingresar_menores
             if @pila_aux[:tope]!=nil
+                if @pila_aux[:size]==nil
+                nodo = {
+                valor:valor,
+                siguiente: nil
+                }
+                tope=@pila[:tope]
+                nodo[:siguiente]=tope
+                @pila[:tope]=nodo
+                @pila_aux[:tope]=nil
+                else
             for i in 1..@pila_aux[:size]
-            valor = pila_aux[:tope][:valor]
+            valor = @pila_aux[:tope][:valor]
             nodo = {
                 valor:valor,
                 siguiente: nil
@@ -41,8 +51,10 @@ class Pila
             tope = @pila[:tope]
             nodo[:siguiente]=tope
             @pila[:tope]=nodo
-            @pila_aux[:tope]=@pila_aux[:tope][:siguiente]
+            siguiente = @pila_aux[:tope][:siguiente]
+            @pila_aux[:tope]=siguiente
             end 
+        end
         end  
         end
         #apartar los menores al valor actual.
@@ -51,13 +63,20 @@ class Pila
                 valor: num,
                 siguiente: nil
             }
-            conta=0
+            conta=1
             while conta<=@pila[:size]
                 valor = @pila[:tope][:valor]
                 if num>valor && @pila[:tope][:siguiente]==nil
                     insertar_en_aux(valor)
-                    @pila[:tope]=@pila[:tope][:siguiente]
-                    conta=@pila[:size]+=1
+                    @pila[:tope]=nodo
+                    @pila[:size]+=1
+                    conta=@pila[:size]+1
+                elsif num ==valor
+                    tope = @pila[:tope]
+                    nodo[:siguiente]=tope
+                    @pila[:tope]=nodo
+                    @pila[:size]+=1
+                    conta=@pila[:size]+1
                 elsif num>valor
                     insertar_en_aux(valor)
                     @pila[:tope]=@pila[:tope][:siguiente]
@@ -71,6 +90,9 @@ class Pila
                 conta+=1
             end 
             ingresar_menores()  
+            @pila_aux[:tope]=nil
+            @pila_aux[:size]=0
+            @pila_aux[:esta_vacia]=true  
         end
         #ordenar principal
         def ordenar_pila(array=[])
@@ -87,9 +109,10 @@ class Pila
                 else
                     apartar_menores(array[i])
                 end
-            end    
+            end  
         end
         def mostrar_pila
-            puts  @pila
+        puts @pila
+            puts @pila_aux
         end
 end
