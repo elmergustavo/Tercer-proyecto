@@ -64,7 +64,7 @@ end
     if array.size!=0
     array_antes=array.join(' => ')
     lista.ordenar_lista(array)
-    puts lista.mostrar_lista
+    lista.mostrar_tabla(array_antes)
     gets
     else
       puts 'Ingrese nuevos datos para ordenar'
@@ -116,8 +116,18 @@ end
     gets
     end
   when '3'
+    if array.size!=0
+      array_antes=array.join(',')
+      lista.ordenar_lista(array)
+      lista.mostrar_paso(array_antes)
+      gets
+    else
+    puts 'Ingrese nuevos datos para ordenar'
+    gets
+    end
   else
     'La opcion no es valida vuelva a ingresar'
+    gets
   end
 end while opc!='4'
 end

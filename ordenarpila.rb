@@ -138,7 +138,7 @@ class Pila
         end
         def mostrar_tabla(array_antes)
   tabla = Terminal::Table.new do |a|
-  a.title= 'Ordenar todos los datos'
+  a.title= 'Ordenar todos los datos - Pila'
   a.headings = [{value:array_antes, alignment: :center}]
   a.add_row([{value:mostrar_pila(), alignment: :center}])
   end
@@ -181,5 +181,4 @@ end
         end
         @pasos.clear
       end
-
 end

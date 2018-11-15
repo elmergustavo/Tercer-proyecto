@@ -207,7 +207,7 @@ def ingresar_menores #ingresar los menores en la cola principal
 
   def mostrar_tabla(array_antes)
   tabla = Terminal::Table.new do |a|
-  a.title= 'Ordenar todos los datos'
+  a.title= 'Ordenar todos los datos - Cola'
   a.headings = [{value:array_antes, alignment: :center}]
   a.add_row([{value:mostrar_cola(), alignment: :center}])
   end

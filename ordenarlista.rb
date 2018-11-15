@@ -58,7 +58,7 @@ end
       def ordenar_lista(array=[])
         size = array.size
         for i in 0..size-1
-          @pasoL.push("ingresa: "+"#{array[i]}")#paso..
+          @pasoL.push("ingresa: #{array[i]}")#paso..
           nodo ={
             valor: array[i],
             siguiente: nil
@@ -95,4 +95,51 @@ end
                 @cadenaL
             end
         end
+
+        def mostrar_tabla(array_antes)
+  tabla = Terminal::Table.new do |a|
+  a.title= 'Ordenar todos los datos - Lista'
+  a.headings = [{value:array_antes, alignment: :center}]
+  a.add_row([{value:mostrar_lista(), alignment: :center}])
+  end
+  puts tabla
+      end
+
+      def tabla_pasos(conta,array_antes)
+        aux=0
+  tabla = Terminal::Table.new do |a|
+  a.title= "Elementos a ordenar: #{array_antes}"
+  a.headings = [{value:'Interaccion', alignment: :center},{value:'Estructura de datos', alignment: :center}]
+  for i in 0..conta-1
+  a.add_row([
+  aux+=1,
+  @pasoL[i]
+  ])
 end
+  end
+  return tabla
+      end
+
+      def mostrar_paso(array_antes)
+          size=@pasoL.size
+          conta=0
+        while conta<size
+          limpiar_pantalla
+          print 'Ingrese (p) para ir paso a paso o (f) para mostrar todos los pasos: '
+          opc=gets.chomp
+          if opc == 'p'
+          puts tabla_pasos(conta+=1,array_antes)
+          gets
+          elsif opc == 'f'
+            conta=size
+            puts tabla_pasos(size,array_antes)
+            puts 'Fin de la estructura'
+            gets
+          else
+            puts 'opcion icorrecta, vuelva a intentar'
+          end
+        end
+        @pasoL.clear
+      end
+end
+
