@@ -47,7 +47,9 @@ class Cola
   end
 #ingresar los menores
 def ingresar_menores #ingresar los menores en la cola principal
-  valor = @cola_menor[:tope][:valor]
+      for i in 1..@cola_menor[:size]
+        if @cola[:tope]==nil
+          valor = @cola_menor[:tope][:valor]
             nodo = {
                 valor:valor,
                 siguiente: nil
@@ -55,8 +57,9 @@ def ingresar_menores #ingresar los menores en la cola principal
             @cola[:tope]=nodo
             @cola[:fondo]=nodo
             @cola[:esta_vacia]=false
-
-      for i in 1..@cola_menor[:size]
+            @paso.push("cuando cola es nil"+mostrar_cola())
+            @cola_menor[:tope]=@cola_menor[:tope][:siguiente]
+        else
             valor = @cola_menor[:tope][:valor]
             nodo = {
                 valor:valor,
@@ -67,8 +70,9 @@ def ingresar_menores #ingresar los menores en la cola principal
             @cola[:fondo]=nodo
             siguiente = @cola_menor[:tope][:siguiente]
             @cola_menor[:tope]=siguiente
-            @paso.push(mostrar_cola())#paso
+            @paso.push(">>>"+mostrar_cola())#paso
           end
+        end
     end
 
 
@@ -90,6 +94,7 @@ def ingresar_menores #ingresar los menores en la cola principal
             end
     end
     def ingresar_cola_menor(valor)#ingresar al auxiliar menor.
+      @paso.push("ingresar en aux menor"+mostrar_cola())
         nodo = {
                 valor: valor,
                 siguiente: nil,
@@ -105,6 +110,7 @@ def ingresar_menores #ingresar los menores en la cola principal
                 @cola_menor[:fondo]=nodo
                 @cola_menor[:size]+=1
             end
+            @paso.push("--"+mostrar_cola)
     end
 
     #vaciar cola
@@ -133,6 +139,7 @@ def ingresar_menores #ingresar los menores en la cola principal
                 @cola[:fondo]=nil
                 @cola[:tope]=nil
                 @cola[:esta_vacia]=true
+                @paso.push("+"+mostrar_cola())
                 if menor>0
                   ingresar_menores()
                   @paso.push("*"+mostrar_cola())
@@ -191,7 +198,7 @@ def ingresar_menores #ingresar los menores en la cola principal
         end
         def mostrar_cola
           elemento=@cola[:tope]
-
+            @cadena1=""
             if elemento ==nil
               @cadena1=""
               @cadena1
@@ -209,11 +216,11 @@ def ingresar_menores #ingresar los menores en la cola principal
         end
         def mostrar_paso
           puts @cola
-          puts @cola_mayor
-          puts @cola_menor
-          @paso.each do |x|
-            puts x
-          end
+          #puts @cola_mayor
+          #puts @cola_menor
+          #@paso.each do |x|
+           # puts x
+          #end
         end
 
 end
