@@ -2,15 +2,16 @@ require 'terminal-table'
 def limpiar_pantalla
 system('clear')
 end
+#creamos la Clase pila
 class Pila
         def initialize
-            @pila = {
+            @pila = {  #creamos un Diccionario pila donde contengan los atributos de mi clase
                 tope: nil,
                 size: 0,
                 esta_vacia: true,
                 imprecion: false
             }
-            @pila_aux = {
+            @pila_aux = { #creamos un Diccionario pila auxiliar como un diccionario temporal
                 tope: nil,
                 size:0,
                 esta_vacia: true

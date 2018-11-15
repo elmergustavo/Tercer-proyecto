@@ -1,25 +1,25 @@
 require 'terminal-table'
-class Cola
-  def initialize
-    @cola = {
+class Cola #clase cola con los siguientes atributos
+  def initialize  #constructor
+    @cola = {    #Diccionario cola con los siguientes campos
     tope: nil,
     fondo: nil,
     size: 0,
     esta_vacia: true
   }
-  @cola_mayor ={
+  @cola_mayor ={ #creamos un diccionario donde almacenamos todos los valores mayores
     tope: nil,
     fondo: nil,
     size: 0,
     esta_vacia: true
   }
-  @cola_menor={
+  @cola_menor={ #Creamos un diccionario donde se almaneceran todos los valores menores
     tope: nil,
     fondo: nil,
     size: 0,
     esta_vacia: true
   }
-  @paso=[]
+  @paso=[]    #esta variable de instacia array nos sirve para guardar los pasos a la hora de mostrar
   @cadena1=""
     end
 
@@ -86,6 +86,7 @@ def ingresar_menores #ingresar los menores en la cola principal
                 @cola_mayor[:size]+=1
             end
     end
+    #en esta funcion almacenamos todos los valores menores agregando en un diccionario
     def ingresar_cola_menor(valor)#ingresar al auxiliar menor.
         nodo = {
                 valor: valor,

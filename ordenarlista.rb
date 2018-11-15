@@ -1,7 +1,7 @@
 require 'terminal-table'
-class Lista
-  def initialize
-    @lista ={
+class Lista #Cremos la Clase Lista
+  def initialize #constructor
+    @lista ={ #creamos un Diccionario lista con los siguientes campos
       tope: nil,
       fondo: nil,
       size: 0,

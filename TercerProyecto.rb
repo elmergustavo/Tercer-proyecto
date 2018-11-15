@@ -1,27 +1,29 @@
 require 'rubygems'
 require 'terminal-table'
-require_relative 'ordenarpila'
-require_relative 'ordenarcola'
-require_relative 'ordenarlista'
+require_relative 'ordenarpila' #mandamos a llamar la clase pila
+require_relative 'ordenarcola' #mandamos a llamar la clase Cola
+require_relative 'ordenarlista'#mandamos a llamar la clase Lista
 
 def limpiar_pantalla
     system('clear')
 end
-#Ingresar datos
+
+#Ingresar datos almacenado en un array
 def ingreso_de_datos(array=[])
     print 'Ingrese los numeros: '
     cadena = gets.chomp
     cadena1 = cadena.split(',')
-    cadena1.each do |x|
+    cadena1.each do |x|       #almacenamos los valor en arreglo ignorando las comas
     array.push(x)
   end
-  size=array.size
+  size=array.size     #los elemento los convertimos en un numero entero
   for i in 0..size-1
     array[i] = array[i].to_i
   end
 
 end
 #ORDENAR TODOS LOS DATOS
+#esqume del contenido
 def ordenar_todos_los_datos(pila,array=[],cola,lista)
 
   begin
@@ -74,7 +76,7 @@ end
     'La opcion no es valida vuelva a ingresar'
   end
 end while opc!='4' #fin begin
-end
+end #fin de la funcion
 
 
 #ORDENAR PASO A PASO
