@@ -2,6 +2,7 @@ require 'rubygems'
 require 'terminal-table'
 require_relative 'ordenarpila'
 require_relative 'ordenarcola'
+require_relative 'ordenarlista'
 
 def limpiar_pantalla
     system('clear')
@@ -21,7 +22,7 @@ def ingreso_de_datos(array=[])
 
 end
 #ORDENAR TODOS LOS DATOS
-def ordenar_todos_los_datos(pila,array=[],cola)
+def ordenar_todos_los_datos(pila,array=[],cola,lista)
 
   begin
     limpiar_pantalla
@@ -60,6 +61,15 @@ end
       gets
     end
   when '3'
+    if array.size!=0
+    array_antes=array.join(' => ')
+    lista.ordenar_lista(array)
+    puts lista.mostrar_lista
+    gets
+    else
+      puts 'Ingrese nuevos datos para ordenar'
+      gets
+    end
   else
     'La opcion no es valida vuelva a ingresar'
   end
@@ -68,7 +78,7 @@ end
 
 
 #ORDENAR PASO A PASO
-def ordenar_paso_a_paso(pila,array=[],cola)
+def ordenar_paso_a_paso(pila,array=[],cola,lista)
   begin
     limpiar_pantalla
   tabla = Terminal::Table.new do |a|
@@ -117,6 +127,7 @@ end
 
 pila = Pila.new
 cola = Cola.new
+lista = Lista.new
 array =[]
 begin
   limpiar_pantalla
@@ -142,9 +153,9 @@ end
     when '1'
       ingreso_de_datos(array)
     when '2'
-      ordenar_todos_los_datos(pila,array,cola)
+      ordenar_todos_los_datos(pila,array,cola,lista)
     when '3'
-        ordenar_paso_a_paso(pila,array,cola)
+        ordenar_paso_a_paso(pila,array,cola,lista)
     when '4'
         puts "Programa Terminado"
     else

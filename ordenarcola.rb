@@ -1,6 +1,4 @@
 require 'terminal-table'
-require_relative 'ingresar_apartados_cola'
-
 class Cola
   def initialize
     @cola = {
