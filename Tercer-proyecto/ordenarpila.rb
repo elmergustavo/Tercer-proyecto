@@ -147,7 +147,7 @@ class Pila
       def tabla_pasos(conta,array_antes)
         aux=0
   tabla = Terminal::Table.new do |a|
-  a.title= "Elementos a ordenar: #{array_antes}"
+  a.title= "Elementos a ordenar (PILA): #{array_antes} "
   a.headings = [{value:'Interaccion', alignment: :center},{value:'Estructura de datos', alignment: :center}]
   for i in 0..conta-1
   a.add_row([
@@ -182,6 +182,7 @@ end
       end
       def pasos_pila
         size = @pasos.size
+        return size
       end
       def limpiar_pila
         @pila[:tope]=nil

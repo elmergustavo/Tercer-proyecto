@@ -216,7 +216,7 @@ def ingresar_menores #ingresar los menores en la cola principal
   def tabla_pasos(conta,array_antes)
         aux=0
   tabla = Terminal::Table.new do |a|
-  a.title= "Elementos a ordenar: #{array_antes}"
+  a.title= "Elementos a ordenar (COLA): #{array_antes} "
   a.headings = [{value:'Interaccion', alignment: :center},{value:'Estructura de datos', alignment: :center}]
   for i in 0..conta-1
   a.add_row([
@@ -250,6 +250,10 @@ end
         #@paso.clear
       end
 
+      def pasos_cola
+        size = @paso.size
+        return size
+      end
 
       def limpiar_cola
         @cola[:tope]=nil
