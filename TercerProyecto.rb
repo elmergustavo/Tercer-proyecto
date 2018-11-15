@@ -41,8 +41,9 @@ end
   case opc
   when '1'
     if array.size!=0
+    array_antes=array.join(',')
     cola.ordenar_cola(array)
-    cola.mostrar_paso
+    cola.mostrar_tabla(array_antes)
     gets
     else
       puts 'Ingrese nuevos datos para ordenar'
@@ -85,8 +86,15 @@ end
   limpiar_pantalla()
   case opc
   when '1'
-    cola.mostrar_paso
+    if array.size!=0
+      array_antes=array.join(',')
+      cola.ordenar_cola(array)
+      cola.mostrar_paso(array_antes)
+      gets
+    else
+    puts 'Ingrese nuevos datos para ordenar'
     gets
+    end
   when '2'
     if array.size!=0
       array_antes=array.join(',')

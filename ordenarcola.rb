@@ -21,12 +21,6 @@ class Cola
     size: 0,
     esta_vacia: true
   }
-  @cola_igual={
-    tope: nil,
-    fondo: nil,
-    size: 0,
-    esta_vacia: true
-  }
   @paso=[]
   @cadena1=""
     end
@@ -42,7 +36,7 @@ class Cola
             fondo[:siguiente]=nodo
             @cola[:fondo]=nodo
             @cola_mayor[:tope]=@cola_mayor[:tope][:siguiente]
-            @paso.push(mostrar_cola())#paso
+            @paso.push(mostrar_cola())
           end
   end
 #ingresar los menores
@@ -57,7 +51,7 @@ def ingresar_menores #ingresar los menores en la cola principal
             @cola[:tope]=nodo
             @cola[:fondo]=nodo
             @cola[:esta_vacia]=false
-            @paso.push("cuando cola es nil"+mostrar_cola())
+
             @cola_menor[:tope]=@cola_menor[:tope][:siguiente]
         else
             valor = @cola_menor[:tope][:valor]
@@ -70,8 +64,9 @@ def ingresar_menores #ingresar los menores en la cola principal
             @cola[:fondo]=nodo
             siguiente = @cola_menor[:tope][:siguiente]
             @cola_menor[:tope]=siguiente
-            @paso.push(">>>"+mostrar_cola())#paso
+
           end
+        @paso.push(mostrar_cola())
         end
     end
 
@@ -94,7 +89,6 @@ def ingresar_menores #ingresar los menores en la cola principal
             end
     end
     def ingresar_cola_menor(valor)#ingresar al auxiliar menor.
-      @paso.push("ingresar en aux menor"+mostrar_cola())
         nodo = {
                 valor: valor,
                 siguiente: nil,
@@ -110,53 +104,50 @@ def ingresar_menores #ingresar los menores en la cola principal
                 @cola_menor[:fondo]=nodo
                 @cola_menor[:size]+=1
             end
-            @paso.push("--"+mostrar_cola)
     end
 
     #vaciar cola
     def vaciar(nodo,num)
             menor=0
-            @paso.push(num)#paso..
             while @cola[:tope]!=nil
                 valor = @cola[:tope][:valor]
                   if num>valor
                     menor+=1
                     ingresar_cola_menor(valor)
-                    @paso.push("apartar menor: #{valor}")
+                    @paso.push("apartar menor: #{valor}")#paso..
                   elsif num<valor
                     ingresar_cola_mayor(valor)
-                    @paso.push("apartar mayor: #{valor}")
+                    @paso.push("apartar mayor: #{valor}")#paso..
                   elsif num == valor
-
                     ingresar_cola_mayor(valor)
-                    @paso.push("aparatar igual: #{valor}")
+                    @paso.push("aparatar igual: #{valor}")#paso..
                   end
-                  @paso.push(@cola[:tope][:valor])
-                @cola[:tope]=@cola[:tope][:siguiente]
 
+                @cola[:tope]=@cola[:tope][:siguiente]
                 end
-                @paso.push("*"+mostrar_cola())
+
                 @cola[:fondo]=nil
                 @cola[:tope]=nil
                 @cola[:esta_vacia]=true
-                @paso.push("+"+mostrar_cola())
+
                 if menor>0
                   ingresar_menores()
-                  @paso.push("*"+mostrar_cola())
+
                   fondo=@cola[:fondo]
                   fondo[:siguiente]=nodo
                   @cola[:fondo]=nodo
                   @cola[:size]+=1
+                  @paso.push(mostrar_cola())#paso...
                   ingresar_mayores()
-                  @paso.push("-"+mostrar_cola())
                 else
                   @cola[:tope]=nodo
                   @cola[:fondo]=nodo
                   @cola[:size]+=1
                   @cola[:esta_vacia]=false
+                  @paso.push(mostrar_cola())#paso..
                   ingresar_mayores()
                 end
-                @paso.push("*"+mostrar_cola())#paso
+
                 @cola_mayor[:tope]=nil
                 @cola_mayor[:fondo]=nil
                 @cola_mayor[:size]=0
@@ -189,6 +180,7 @@ def ingresar_menores #ingresar los menores en la cola principal
                     fondo[:siguiente]=nodo
                     @cola[:fondo]=nodo
                     @cola[:size]+=1
+                    @paso.push(mostrar_cola())
                   else
                     vaciar(nodo,array[i])
                   end
@@ -214,13 +206,50 @@ def ingresar_menores #ingresar los menores en la cola principal
                 @cadena1
             end
         end
-        def mostrar_paso
-          puts @cola
-          #puts @cola_mayor
-          #puts @cola_menor
-          #@paso.each do |x|
-           # puts x
-          #end
-        end
 
+  def mostrar_tabla(array_antes)
+  tabla = Terminal::Table.new do |a|
+  a.title= 'Ordenar todos los datos'
+  a.headings = [{value:array_antes, alignment: :center}]
+  a.add_row([{value:mostrar_cola(), alignment: :center}])
+  end
+  puts tabla
+      end
+
+  def tabla_pasos(conta,array_antes)
+        aux=0
+  tabla = Terminal::Table.new do |a|
+  a.title= "Elementos a ordenar: #{array_antes}"
+  a.headings = [{value:'Interaccion', alignment: :center},{value:'Estructura de datos', alignment: :center}]
+  for i in 0..conta-1
+  a.add_row([
+  aux+=1,
+  @paso[i]
+  ])
+end
+  end
+  return tabla
+      end
+
+      def mostrar_paso(array_antes)
+          size=@paso.size
+          conta=0
+        while conta<size
+          limpiar_pantalla
+          print 'Ingrese (p) para ir paso a paso o (f) para mostrar todos los pasos: '
+          opc=gets.chomp
+          if opc == 'p'
+          puts tabla_pasos(conta+=1,array_antes)
+          gets
+          elsif opc == 'f'
+            conta=size
+            puts tabla_pasos(size,array_antes)
+            puts 'Fin de la estructura'
+            gets
+          else
+            puts 'opcion icorrecta, vuelva a intentar'
+          end
+        end
+        @paso.clear
+      end
 end
