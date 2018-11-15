@@ -38,38 +38,38 @@ def ordenar_todos_los_datos(pila,array=[],cola,lista)
   a.add_row([{value:'4', alignment: :center},'Salir.' ])
 end
   puts tabla
-  print "Ingrese una estructura: "
+  print "Ingrese una estructura: " 
   opc = gets.chomp
   limpiar_pantalla()
   case opc
-  when '1'
+  when '1' #opc 1 ordenamiento por cola
     if array.size!=0
     array_antes=array.join(',')
     cola.ordenar_cola(array)
     cola.mostrar_tabla(array_antes)
     gets
     else
-      puts 'Ingrese nuevos datos para ordenar'
+      puts 'Ingrese nuevos datos para ordenar' #luego de aver agregado una estructura y de aver escogido la opcion a llamar se reinicia y tiene que volver a insetar valores para escoger otro metodo de ordenar 
       gets
     end
-  when '2'
+  when '2' #opc 2 ordenamiento por pila
     if array.size!=0
     array_antes=array.join(' => ')
     pila.ordenar_pila(array)
     pila.mostrar_tabla(array_antes)
     gets
     else
-      puts 'Ingrese nuevos datos para ordenar'
+      puts 'Ingrese nuevos datos para ordenar' #luego de aver agregado una estructura y de aver escogido la opcion a llamar se reinicia y tiene que volver a insetar valores para escoger otro metodo de ordenar 
       gets
     end
-  when '3'
+  when '3' #opc 3 ordenamiento por lista
     if array.size!=0
     array_antes=array.join(' => ')
     lista.ordenar_lista(array)
     lista.mostrar_tabla(array_antes)
     gets
     else
-      puts 'Ingrese nuevos datos para ordenar'
+      puts 'Ingrese nuevos datos para ordenar' #luego de aver agregado una estructura y de aver escogido la opcion a llamar se reinicia y tiene que volver a insetar valores para escoger otro metodo de ordenar 
       gets
     end
   else
@@ -83,7 +83,7 @@ end #fin de la funcion
 def ordenar_paso_a_paso(pila,array=[],cola,lista)
   begin
     limpiar_pantalla
-  tabla = Terminal::Table.new do |a|
+  tabla = Terminal::Table.new do |a| #muestra el menu en una tabla
   a.title= 'Ordenar paso a paso'
   a.headings = [{value:'No.', alignment: :center},{value:'Estructura', alignment: :center}]
 
@@ -97,34 +97,34 @@ end
   opc = gets.chomp
   limpiar_pantalla()
   case opc
-  when '1'
+  when '1' #opc 1 ordenamiento por cola paso a paso
     if array.size!=0
       array_antes=array.join(',')
       cola.ordenar_cola(array)
       cola.mostrar_paso(array_antes)
       gets
     else
-    puts 'Ingrese nuevos datos para ordenar'
+    puts 'Ingrese nuevos datos para ordenar' #luego de aver agregado una estructura y de aver escogido la opcion a llamar se reinicia y tiene que volver a insetar valores para escoger otro metodo de ordenar 
     gets
     end
-  when '2'
+  when '2' #opc 2 ordenamiento por pila paso a paso
     if array.size!=0
       array_antes=array.join(',')
       pila.ordenar_pila(array)
       pila.mostrar_pasos(array_antes)
       gets
     else
-    puts 'Ingrese nuevos datos para ordenar'
+    puts 'Ingrese nuevos datos para ordenar' #luego de aver agregado una estructura y de aver escogido la opcion a llamar se reinicia y tiene que volver a insetar valores para escoger otro metodo de ordenar 
     gets
     end
-  when '3'
+  when '3' #opc 3 ordenamiento por lista paso a paso
     if array.size!=0
       array_antes=array.join(',')
       lista.ordenar_lista(array)
       lista.mostrar_paso(array_antes)
       gets
     else
-    puts 'Ingrese nuevos datos para ordenar'
+    puts 'Ingrese nuevos datos para ordenar' #luego de aver agregado una estructura y de aver escogido la opcion a llamar se reinicia y tiene que volver a insetar valores para escoger otro metodo de ordenar 
     gets
     end
   else
@@ -163,11 +163,11 @@ end
 
     case opciones
     when '1'
-      ingreso_de_datos(array)
+      ingreso_de_datos(array) #manda a llamar la funcion 
     when '2'
-      ordenar_todos_los_datos(pila,array,cola,lista)
+      ordenar_todos_los_datos(pila,array,cola,lista) #manda a llamar la funcion 
     when '3'
-        ordenar_paso_a_paso(pila,array,cola,lista)
+        ordenar_paso_a_paso(pila,array,cola,lista) #manda a llamar la funcion 
     when '4'
         puts "Programa Terminado"
     else
